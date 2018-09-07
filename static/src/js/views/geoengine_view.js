@@ -467,7 +467,7 @@ var GeoengineView = View.extend(geoengine_common.GeoengineMixin, {
           // previously created styles. Its very important for
           // performance to cache styles.
           var styleCache = {};
-          if(symbols.length == 0){
+          if(typeof symbol == "undefined" || symbols.length == 0){
             var defaultStyleFunction = function(feature, resolution) {
                  var label_text = feature.values_.attributes.label;
                  if(label_text === false){
