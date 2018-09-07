@@ -833,11 +833,13 @@ var GeoengineView = View.extend(geoengine_common.GeoengineMixin, {
         var self = this;
         if (_.isUndefined(this.map)){
             self.zoom_to_extent_ctrl = new ol.control.ZoomToExtent();
-
+            var base_layer =
             map = new ol.Map({
                 layers: [new ol.layer.Group({
                     title: 'Base maps',
-                    layers: self.createBackgroundLayers(self.fields_view.geoengine_layers.backgrounds, this),
+                    layers: self.createBackgroundLayers(self.fields_view.geoengine_layers.backgrounds.sort(function(a,b){
+                        a.sequence - b.sequence
+                    }), this)
                 })],
                 target: 'olmap',
                 view: new ol.View({
