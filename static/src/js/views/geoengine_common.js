@@ -31,7 +31,7 @@ var GeoengineMixin = {
      */
     createBackgroundLayers: function(bg_layers, geoengine) {
         var out = [];
-        _.each(bg_layers, function(l) {
+        bg_layers.forEach(function(l) {
                 switch (l.raster_type) {
                     case "wmts":
                         console.log("not supported");
