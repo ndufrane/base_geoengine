@@ -200,7 +200,7 @@ var GeoengineView = View.extend(geoengine_common.GeoengineMixin, {
         self.dataset.read_slice(_.keys(self.fields_view.fields), {'domain':domain}).then(this.do_load_vector_data);
     },
 
-    createMultiSymbolStyle: function(symbols) {
+    createMultiSymbolStyleOld: function(symbols) {
         var self = this;
         var options = {};
         var rules = [];
