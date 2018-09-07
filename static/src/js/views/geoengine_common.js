@@ -62,10 +62,11 @@ var GeoengineMixin = {
                             layer: l.name,
                             matrixSet: l.matrix_set
                           });
+                          options.crossOrigin = "Anonymous";
                           var wmts_layer = new ol.layer.Tile({
                                 title: l.name,
                                 type: l.overlay ? 'overlay' : 'base',
-                                source: new ol.source.WMTS((options))
+                                source: new ol.source.WMTS(options)
                           });
 
                           var found = false;
@@ -105,7 +106,8 @@ var GeoengineMixin = {
                                 source: new ol.source.TileWMS({
                                     url: l.url,
                                     params: {'LAYERS': l.name, 'TILED': true},
-                                    serverType: 'geoserver'
+                                    serverType: 'geoserver',
+                                    crossOrigin: "Anonymous"
                                 })
                             })
                         );

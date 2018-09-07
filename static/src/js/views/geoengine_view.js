@@ -86,6 +86,41 @@ var formatFeatureHTML = function(a, fields) {
     str.unshift(oid);
     return str.join('<br />');
 };
+
+var exportMapControl = function(opt_options) {
+
+    var options = opt_options || {};
+    var button = document.createElement('button');
+    button.innerHTML = 'P';
+
+    var this_ = this;
+
+    var handleExportMap = function() {
+      this_.getMap().once('postcompose', function(event) {
+        var canvas = event.context.canvas;
+        if (navigator.msSaveBlob) {
+          navigator.msSaveBlob(canvas.msToBlob(), 'map.png');
+        } else {
+          canvas.toBlob(function(blob) {
+            saveAs(blob, 'map.png');
+          });
+        }
+      });
+      this_.getMap().renderSync();
+    }
+    button.addEventListener('click', handleExportMap, false);
+
+    var element = document.createElement('div');
+    element.className = 'ol-export-map ol-unselectable ol-control';
+    element.appendChild(button);
+
+    ol.control.Control.call(this, {
+      element: element,
+      target: options.target
+    });
+
+};
+ol.inherits(exportMapControl, ol.control.Control);
 /**
  * Method: formatFeatureListHTML
  * formats attributes into a string
@@ -798,6 +833,7 @@ var GeoengineView = View.extend(geoengine_common.GeoengineMixin, {
         var self = this;
         if (_.isUndefined(this.map)){
             self.zoom_to_extent_ctrl = new ol.control.ZoomToExtent();
+
             map = new ol.Map({
                 layers: [new ol.layer.Group({
                     title: 'Base maps',
@@ -812,7 +848,8 @@ var GeoengineView = View.extend(geoengine_common.GeoengineMixin, {
                 controls: ol.control.defaults().extend([
                     new ol.control.FullScreen(),
                     new ol.control.ScaleLine(),
-                    self.zoom_to_extent_ctrl
+                    self.zoom_to_extent_ctrl,
+                    new exportMapControl()
                 ]),
             });
             var layerSwitcher = new ol.control.LayerSwitcher({});
