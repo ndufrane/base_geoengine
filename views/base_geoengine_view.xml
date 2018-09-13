@@ -30,6 +30,12 @@
             <script type="text/javascript"
                     src="/base_geoengine/static/src/js/lib/FileSaver-1.3.8.js"/>
 
+            <script type="text/javascript"
+                    src="/base_geoengine/static/src/js/lib/promise.polyfill.js"/>
+
+            <script type="text/javascript"
+                    src="/base_geoengine/static/src/js/lib/fetch.polyfill.js"/>
+                    
             <link rel="stylesheet"
                   href="/base_geoengine/static/src/js/lib/ol-3.18.2/ol.css"/>
             <link rel="stylesheet"
